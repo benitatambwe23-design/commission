@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Commission</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    text-align: center;
+    padding: 40px;
+}
+
+.container {
+    background: white;
+    padding: 25px;
+    width: 70%;
+    margin: auto;
+    border-radius: 6px;
+    box-shadow: 0px 0px 8px #ccc;
+}
+
+/* Visual input box only (not used for data) */
+.fake-input {
+    width: 90%;
+    padding: 12px;
+    margin: 15px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Blue OK button similar to the assignment example */
+button {
+    background: #0066ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #004fd6;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Sales Commission</h2>
+
+<p>
+Enter the dollar amount of one sale at a time.<br>
+Type <b>Done</b> when you are finished.
+</p>
+
+<!-- This box is only for visual design to match the assignment -->
+<div class="fake-input"></div>
+
+<!-- This button launches the prompt window -->
+<button onclick="start()">OK</button>
+</div>
+
+<script>
+function start() {
+
+let total = 0;      // stores the sum of all sales
+let entry;          // stores user input from prompt
+
+/* ----- POST-TEST LOOP (required by the instructor) ----- */
+do {
+    entry = prompt("Enter a sale amount or type Done");
+
+    // Only process input if it is not "done"
+    if (entry !== null && entry.toLowerCase() !== "done") {
+        let amount = parseFloat(entry);
+
+        // Add to total only if input is a valid number
+        if (!isNaN(amount)) {
+            total = total + amount;
+        }
+    }
+
+} while (entry === null || entry.toLowerCase() !== "done");
+/* ----- END OF POST-TEST LOOP ----- */
+
+// ----- Determine commission rate based on subtotal -----
+let rate;
+
+if (total <= 0) {
+    rate = 0;
+}
+else if (total <= 499.99) {
+    rate = 0.05;
+}
+else if (total <= 999.99) {
+    rate = 0.10;
+}
+else {
+    rate = 0.15;
+}
+
+// Calculate commission and total earnings
+let commission = total * rate;
+let totalEarnings = total + commission;
+
+// --- ONLY ONE document.write() OUTPUT (required) ---
+document.write(
+"<h1>Hello salesperson, here is your weekly commission report:</h1>" +
+"<p>Sales subtotal: $" + total.toFixed(2) + "</p>" +
+"<p>Commission rate: " + (rate * 100).toFixed(2) + "%</p>" +
+"<p>Commission earned: $" + commission.toFixed(2) + "</p>" +
+"<p>Total earnings: $" + totalEarnings.toFixed(2) + "</p>"
+);
+}
+</script>
+
+</body>
+</html>
